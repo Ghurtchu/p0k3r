@@ -213,5 +213,65 @@ class HandValueTest extends FunSuite {
     assert(HandValue.isFourOfAKind(hand, player))
   }
 
+  test("isFourOfAKind = false") {
+    val hand = Hand("AsKh4h5hKc")
+    val player = Player("AcAd")
+    assert(!HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isFourOfAKind = false") {
+    val hand = Hand("QsKh4h5hKc")
+    val player = Player("AcAd")
+    assert(!HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isFourOfAKind = false") {
+    val hand = Hand("QsKh4h5hQc")
+    val player = Player("AcQd")
+    assert(!HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isFourOfAKind = false") {
+    val hand = Hand("QsKh4h5hKc")
+    val player = Player("AcQd")
+    assert(!HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isStraightFlush = true") {
+    val hand = Hand("2c3c4c2d3d")
+    val player = Player("5c6c")
+    assert(HandValue.isStraightFlush(hand, player))
+  }
+
+  test("isStraightFlush = true") {
+    val hand = Hand("QcKc9c2d3d")
+    val player = Player("JcTc")
+    assert(HandValue.isStraightFlush(hand, player))
+  }
+
+  test("isStraightFlush = true") {
+    val hand = Hand("TcJc9c9s3d")
+    val player = Player("QcKc")
+    assert(HandValue.isStraightFlush(hand, player))
+  }
+
+  test("isStraightFlush = false") {
+    val hand = Hand("Tc2c9c9s3d")
+    val player = Player("QcKc")
+    assert(!HandValue.isStraightFlush(hand, player))
+  }
+
+  test("isStraightFlush = false") {
+    val hand = Hand("TcJc9c9s3d")
+    val player = Player("QdKc")
+    assert(!HandValue.isStraightFlush(hand, player))
+  }
+
+  test("isStraightFlush = false") {
+    val hand = Hand("TcJs9c9s3d")
+    val player = Player("QcKc")
+    assert(!HandValue.isStraightFlush(hand, player))
+  }
+
 
 }
