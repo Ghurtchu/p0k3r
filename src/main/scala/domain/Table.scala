@@ -7,6 +7,8 @@ import scala.collection.immutable.{ListMap, TreeMap}
 
 final case class Table(hand: Hand, players: List[Player]) {
 
+  import Table._
+
   implicit val ordering: Ordering[Player] = _.rankValue - _.rankValue
 
   def evaluateHand: Map[Int, List[Player]] = ListMap.from {
@@ -24,6 +26,10 @@ final case class Table(hand: Hand, players: List[Player]) {
       }
     }.groupBy(_.rankValue).toSeq.sortBy(_._1).reverse
   }
+
+}
+
+object Table {
 
   private[domain] def getStraightFlush(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
