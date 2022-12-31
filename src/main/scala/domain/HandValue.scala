@@ -90,14 +90,14 @@ object HandValue {
     }
   }
 
-  case object StraightFlush extends HandValue { override def value: Int = 9 }
-  case object FourOfAKind   extends HandValue { override def value: Int = 8 }
-  case object FullHouse     extends HandValue { override def value: Int = 7 }
-  case object Flush         extends HandValue { override def value: Int = 6 }
-  case object Straight      extends HandValue { override def value: Int = 5 }
-  case object ThreeOfAKind  extends HandValue { override def value: Int = 4 }
-  case object TwoPairs      extends HandValue { override def value: Int = 3 }
-  case object Pair          extends HandValue { override def value: Int = 2 }
-  case object HighCard      extends HandValue { override def value: Int = 1 }
+  case object StraightFlush extends HandValue { override def value: Int = 900 }
+  case object FourOfAKind   extends HandValue { override def value: Int = 800 }
+  case object FullHouse     extends HandValue { override def value: Int = 700 }
+  case object Flush         extends HandValue { override def value: Int = 600 }
+  case object Straight      extends HandValue { override def value: Int = 500 }
+  case object ThreeOfAKind  extends HandValue { override def value: Int = 400 }
+  case object TwoPairs      extends HandValue { override def value: Int = 300 }
+  case object Pair          extends HandValue { override def value: Int = 200 }
+  case object HighCard      extends HandValue { override def value: Int = 100 }
 }
 
