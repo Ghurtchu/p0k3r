@@ -19,7 +19,7 @@ object Rank {
     case "7" => Seven
     case "8" => Eight
     case "9" => Nine
-    case "t" => Ten
+    case "T" => Ten
     case "J" => Jack
     case "Q" => Queen
     case "K" => King

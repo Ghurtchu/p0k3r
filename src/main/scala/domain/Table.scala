@@ -25,7 +25,7 @@ final case class Table(hand: Hand, players: List[Player]) {
     }.groupBy(_.rankValue).toSeq.sortBy(_._1).reverse
   }
 
-  private def getStraightFlush(hand: Hand, player: Player): Player = {
+  private[domain] def getStraightFlush(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val allCards = hand.cards ::: player.cards
     val straightRank = allCards.combinations(5).flatMap { cards =>
@@ -37,14 +37,14 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(Straight), rankValue = straightRank)
   }
 
-  private def getFourOfAKind(hand: Hand, player: Player): Player = {
+  private[domain] def getFourOfAKind(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = 4 * (if (first == second || hand.cards.count(_ == first) == 3) first.rankValue else second.rankValue)
 
     player.copy(handValue = Some(FourOfAKind), rankValue = rankValue)
   }
 
-  private def getFullHouse(hand: Hand, player: Player): Player = {
+  private[domain] def getFullHouse(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = if (first == second) {
       val others = hand.cards.filter(c => hand.cards.count(_ == c) == 3).map(_.rankValue).sum
@@ -56,7 +56,7 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(FullHouse), rankValue = rankValue)
   }
 
-  private def getFlush(hand: Hand, player: Player): Player = {
+  private[domain] def getFlush(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = if (first.color == second.color) filterByColorAndSumN(hand, first.color, 3) + first.rankValue + second.rankValue
     else if (hand.cards.count(_.color == first.color) >= 4) filterByColorAndSumN(hand, first.color, 4) + first.rankValue
@@ -65,7 +65,7 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(Flush), rankValue = rankValue)
   }
 
-  private def filterByColorAndSumN(hand: Hand, colors: Color, n: Int): Int =
+  private[domain] def filterByColorAndSumN(hand: Hand, colors: Color, n: Int): Int =
     hand.cards.filter(_.color == colors).sorted.reverse.take(n).map(_.rankValue).sum
 
   private def getStraight(hand: Hand, player: Player): Player = {
@@ -79,14 +79,14 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(Straight), rankValue = straightRank)
   }
 
-  private def getThreeOfAKind(hand: Hand, player: Player): Player = {
+  private[domain] def getThreeOfAKind(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = 3 * (if (first == second || hand.cards.count(_ == first) == 2) first.rankValue else second.rankValue)
 
     player.copy(handValue = Some(ThreeOfAKind), rankValue = rankValue)
   }
 
-  private def getTwoPairs(hand: Hand, player: Player): Player = {
+  private[domain] def getTwoPairs(hand: Hand, player: Player): Player = {
     implicit val rankOrdering: Ordering[Rank] = _.value - _.value
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = 2 * (if (first == second) {
@@ -99,7 +99,7 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(TwoPairs), rankValue = rankValue)
   }
 
-  private def getPair(hand: Hand, player: Player): Player = {
+  private[domain] def getPair(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val isFirstPair = hand.cards.count(_ == first) == 1
     val rankValue = 2 * (if (isFirstPair) first else second).rankValue
@@ -107,7 +107,7 @@ final case class Table(hand: Hand, players: List[Player]) {
     player.copy(handValue = Some(Pair), rankValue = rankValue)
   }
 
-  private def getHighCard(player: Player): Player = {
+  private[domain] def getHighCard(player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val rankValue = (if (first.rank > second.rank) first else second).rankValue
 
