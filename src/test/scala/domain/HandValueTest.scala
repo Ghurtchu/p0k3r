@@ -3,10 +3,7 @@ package domain
 import munit.FunSuite
 import HasCards._
 
-// c = clubs
-// d = diamonds
-// h = hearts
-// s = spades
+// c = clubs, d = diamonds, h = hearts, s = spades
 class HandValueTest extends FunSuite {
 
   test("isPair = true") {
@@ -272,6 +269,5 @@ class HandValueTest extends FunSuite {
     val player = Player("QcKc")
     assert(!HandValue.isStraightFlush(hand, player))
   }
-
 
 }
