@@ -65,7 +65,7 @@ object HandValue {
     val playerRanks = player.cards.map(_.rank)
     val (first, second) = (playerRanks.head, playerRanks.last)
     if (first == second) hand.cards.count(_.rank == first) == 1
-    else hand.cards.count(_.rank == first) == 3 || hand.cards.count(_.rank == second) == 3
+    else hand.cards.count(_.rank == first) == 2 || hand.cards.count(_.rank == second) == 2
   }
 
   private[domain] def isTwoPairs(hand: Hand, player: Player): Boolean = {

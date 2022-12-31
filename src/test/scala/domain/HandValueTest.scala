@@ -12,72 +12,95 @@ class HandValueTest extends FunSuite {
   test("isPair = true") {
     val hand = Hand("2c3dKcQh9d")
     val player = Player("3c4h")
-    val isPair = HandValue.isPair(hand, player)
-    assert(isPair)
+    assert(HandValue.isPair(hand, player))
   }
 
   test("isPair = true") {
     val hand = Hand("2c5dKcQh9d")
     val player = Player("TcTs")
-    val isPair = HandValue.isPair(hand, player)
-    assert(isPair)
+    assert(HandValue.isPair(hand, player))
   }
 
   test("isPair = true") {
     val hand = Hand("2c5dKcQhAc")
     val player = Player("3cAs")
-    val isPair = HandValue.isPair(hand, player)
-    assert(isPair)
+    assert(HandValue.isPair(hand, player))
   }
 
   test("isPair = false") {
     val hand = Hand("2c5dKcQh9d")
     val player = Player("6c7s")
-    val isPair = HandValue.isPair(hand, player)
-    assert(!isPair)
+    assert(!HandValue.isPair(hand, player))
   }
 
   test("isPair = false") {
     val hand = Hand("2c5dKcQhQd")
     val player = Player("Ac8s")
-    val isPair = HandValue.isPair(hand, player)
-    assert(!isPair)
+    assert(!HandValue.isPair(hand, player))
   }
 
   test("isTwoPairs = true") {
     val hand = Hand("2c3dKcQh4d")
     val player = Player("3c4h")
-    val isPair = HandValue.isTwoPairs(hand, player)
-    assert(isPair)
+    assert(HandValue.isTwoPairs(hand, player))
   }
 
   test("isTwoPairs = true") {
     val hand = Hand("2c3dKcQh4d")
     val player = Player("2d3h")
-    val isPair = HandValue.isTwoPairs(hand, player)
-    assert(isPair)
+    assert(HandValue.isTwoPairs(hand, player))
   }
 
   test("isTwoPairs = false") {
     val hand = Hand("2c3dKcQh4d")
     val player = Player("3c3h")
-    val isPair = HandValue.isTwoPairs(hand, player)
-    assert(!isPair)
+    assert(!HandValue.isTwoPairs(hand, player))
   }
 
   test("isTwoPairs = false") {
     val hand = Hand("2c3dKcQh4d")
     val player = Player("3c5h")
-    val isPair = HandValue.isTwoPairs(hand, player)
-    assert(!isPair)
+    assert(!HandValue.isTwoPairs(hand, player))
   }
 
   test("isTwoPairs = false") {
     val hand = Hand("2c3dKcQh4d")
     val player = Player("6c2h")
-    val isPair = HandValue.isTwoPairs(hand, player)
-    assert(!isPair)
+    assert(!HandValue.isTwoPairs(hand, player))
   }
 
+  test("isThreeOfAKind = true") {
+    val hand = Hand("2c3dKc6h4d")
+    val player = Player("6c6h")
+    assert(HandValue.isThreeOfAKind(hand, player))
+  }
+
+  test("isThreeOfAKind = true") {
+    val hand = Hand("2c6dKc6h4d")
+    val player = Player("6c7h")
+    assert(HandValue.isThreeOfAKind(hand, player))
+  }
+
+  test("isThreeOfAKind = true") {
+    val hand = Hand("2c6d7c7d4d")
+    val player = Player("6c7h")
+    assert(HandValue.isThreeOfAKind(hand, player))
+  }
+
+  test("isThreeOfAKind = false") {
+    val hand = Hand("2c5d7c7d4d")
+    val player = Player("TcTh")
+    assert(!HandValue.isThreeOfAKind(hand, player))
+  }
+
+  test("isThreeOfAKind = false") {
+    val hand = Hand("2c6d7c7d4d")
+    val player = Player("AcTh")
+    assert(!HandValue.isThreeOfAKind(hand, player))
+  }
+
+  test("isStraight = true") {
+
+  }
 
 }
