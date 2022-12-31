@@ -39,7 +39,7 @@ object HandValue {
     val playerRanks = player.cards.map(_.rank)
     val (first, second) = (playerRanks.head, playerRanks.last)
     if (first == second) hand.cards.count(_.rank == first) == 2
-    else hand.cards.count(_.rank == first) == 4 || hand.cards.count(_.rank == second) == 4
+    else hand.cards.count(_.rank == first) == 3 || hand.cards.count(_.rank == second) == 3
   }
 
   private[domain] def isFullHouse(hand: Hand, player: Player): Boolean = {

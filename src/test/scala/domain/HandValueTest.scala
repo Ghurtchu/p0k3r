@@ -177,5 +177,41 @@ class HandValueTest extends FunSuite {
     assert(HandValue.isFullHouse(hand, player))
   }
 
+  test("isFullHouse = true") {
+    val hand = Hand("Th5s4h5hTd")
+    val player = Player("Tc5d")
+    assert(HandValue.isFullHouse(hand, player))
+  }
+
+  test("isFullHouse = false") {
+    val hand = Hand("Th6s4h5hQd")
+    val player = Player("Tc5d")
+    assert(!HandValue.isFullHouse(hand, player))
+  }
+
+  test("isFullHouse = false") {
+    val hand = Hand("ThTs4h5hQd")
+    val player = Player("AcAd")
+    assert(!HandValue.isFullHouse(hand, player))
+  }
+
+  test("isFourOfAKind = true") {
+    val hand = Hand("AsAh4h5hQd")
+    val player = Player("AcAd")
+    assert(HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isFourOfAKind = true") {
+    val hand = Hand("AsAh4h5hAd")
+    val player = Player("AcKd")
+    assert(HandValue.isFourOfAKind(hand, player))
+  }
+
+  test("isFourOfAKind = true") {
+    val hand = Hand("KsKh4h5hKc")
+    val player = Player("AcKd")
+    assert(HandValue.isFourOfAKind(hand, player))
+  }
+
 
 }
