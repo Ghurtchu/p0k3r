@@ -1,4 +1,5 @@
-import HasCards._
+import domain.HasCards._
+import domain.{Game, Table}
 
 object Main {
   def main(args: Array[String]): Unit = {

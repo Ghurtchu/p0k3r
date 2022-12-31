@@ -1,3 +1,4 @@
+package domain
 
 final case class Card(value: String) {
   def rank: Rank = Rank(value.substring(0, 1))

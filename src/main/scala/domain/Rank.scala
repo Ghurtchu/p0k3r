@@ -1,3 +1,4 @@
+package domain
 
 sealed trait Rank {
   def value: Int

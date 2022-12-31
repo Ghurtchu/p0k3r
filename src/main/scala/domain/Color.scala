@@ -1,3 +1,4 @@
+package domain
 
 sealed trait Color
 

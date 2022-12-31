@@ -1,4 +1,6 @@
-import HasCards._
+package domain
+
+import domain.HasCards.{Hand, Player}
 
 sealed trait HandValue {
   def value: Int

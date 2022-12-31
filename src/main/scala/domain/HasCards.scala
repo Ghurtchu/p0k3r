@@ -1,3 +1,4 @@
+package domain
 
 trait HasValue {
   def value: String

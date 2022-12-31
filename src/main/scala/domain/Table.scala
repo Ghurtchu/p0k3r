@@ -1,7 +1,9 @@
-import HandValue.ThreeOfAKind
-import HasCards._
-import scala.collection.immutable.{ListMap, TreeMap}
+package domain
+
 import HandValue._
+import HasCards._
+
+import scala.collection.immutable.{ListMap, TreeMap}
 
 final case class Table(hand: Hand, players: List[Player]) {
 
