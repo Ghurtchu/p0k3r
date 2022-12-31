@@ -44,13 +44,6 @@ object HandValue {
 
   private[domain] def isFullHouse(hand: Hand, player: Player): Boolean = isThreeOfAKind(hand, player) && isPair(hand, player)
 
-  private[domain] def isThreeOfAKind(hand: Hand, player: Player): Boolean = {
-    val playerRanks = player.cards.map(_.rank)
-    val (first, second) = (playerRanks.head, playerRanks.last)
-    if (first == second) hand.cards.count(_.rank == first) == 1
-    else hand.cards.count(_.rank == first) == 3 || hand.cards.count(_.rank == second) == 3
-  }
-
   private[domain] def isFlush(hand: Hand, player: Player): Boolean = {
     val playerColors = player.cards.map(_.color)
     val (first, second) = (playerColors.head, playerColors.last)
@@ -66,6 +59,13 @@ object HandValue {
 
       straightRanges contains allCardsValues
     }
+  }
+
+  private[domain] def isThreeOfAKind(hand: Hand, player: Player): Boolean = {
+    val playerRanks = player.cards.map(_.rank)
+    val (first, second) = (playerRanks.head, playerRanks.last)
+    if (first == second) hand.cards.count(_.rank == first) == 1
+    else hand.cards.count(_.rank == first) == 3 || hand.cards.count(_.rank == second) == 3
   }
 
   private[domain] def isTwoPairs(hand: Hand, player: Player): Boolean = {

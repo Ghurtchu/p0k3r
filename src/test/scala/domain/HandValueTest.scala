@@ -65,5 +65,19 @@ class HandValueTest extends FunSuite {
     assert(!isPair)
   }
 
+  test("isTwoPairs = false") {
+    val hand = Hand("2c3dKcQh4d")
+    val player = Player("3c5h")
+    val isPair = HandValue.isTwoPairs(hand, player)
+    assert(!isPair)
+  }
+
+  test("isTwoPairs = false") {
+    val hand = Hand("2c3dKcQh4d")
+    val player = Player("6c2h")
+    val isPair = HandValue.isTwoPairs(hand, player)
+    assert(!isPair)
+  }
+
 
 }
