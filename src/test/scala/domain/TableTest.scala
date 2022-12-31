@@ -69,12 +69,34 @@ class TableTest extends FunSuite {
     assertEquals(player.rankValue, Straight.value + Rank.Three.value + Rank.Four.value + Rank.Five.value + Rank.Six.value + Rank.Seven.value)
   }
 
-  test("getStraight = 525") {
+  test("getStraight = 560") {
     val hand = Hand("2dAcJsQhKc")
     val player = Table.getStraight(hand, Player("5sTd"))
     assertEquals(player.rankValue, Straight.value + Rank.Ten.value + Rank.Jack.value + Rank.Queen.value + Rank.King.value + Rank.Ace.value)
   }
 
+  test("getFlush = 643") {
+    val hand = Hand("2sTs3d6sKs")
+    val player = Table.getFlush(hand, Player("5s3s"))
+    assertEquals(player.rankValue, Flush.value + Rank.Five.value + Rank.Three.value + Rank.Ten.value + Rank.King.value + Rank.Six.value)
+  }
 
+  test("getFlush = 634") {
+    val hand = Hand("2c3c5cAsAc")
+    val player = Table.getFlush(hand, Player("TcKh"))
+    assertEquals(player.rankValue, Flush.value + Rank.Ten.value + Rank.Ace.value + Rank.Five.value + Rank.Three.value + Rank.Two.value)
+  }
+
+  test("getFullHouse = ???") {
+    val hand = Hand("AsAhQc3d4d")
+    val player = Table.getFullHouse(hand, Player("AcQs"))
+    assertEquals(player.rankValue, FullHouse.value + Rank.Ace.value * 3 + Rank.Queen.value * 2)
+  }
+
+  test("getFullHouse = ???") {
+    val hand = Hand("AsAcAh2d4s")
+    val player = Table.getFullHouse(hand, Player("KcKs"))
+    assertEquals(player.rankValue, FullHouse.value + Rank.King.value * 2 + Rank.Ace.value * 3)
+  }
 
 }

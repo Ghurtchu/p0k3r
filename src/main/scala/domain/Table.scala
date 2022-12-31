@@ -51,13 +51,14 @@ object Table {
   }
 
   private[domain] def getFullHouse(hand: Hand, player: Player): Player = {
-    val (first, second) = (player.cards.head, player.cards.last)
+    val playerRanks = player.cards.map(_.rank)
+    val (first, second) = (playerRanks.head, playerRanks.last)
     val rankValue = FullHouse.value + (if (first == second) {
-      val others = hand.cards.filter(c => hand.cards.count(_ == c) == 3).map(_.rankValue).sum
+      val others = hand.cards.filter(c => hand.cards.count(_.rank == c.rank) == 3).map(_.rankValue).sum
 
-      first.rankValue + second.rankValue + others
-    } else if (hand.cards.count(_ == first) == 2) first.rankValue * 3 + second.rankValue * 2
-    else first.rankValue * 2 + second.rankValue * 3)
+      first.value + second.value + others
+    } else if (hand.cards.count(_.rank == first) == 2) first.value * 3 + second.value * 2
+    else first.value * 2 + second.value * 3)
 
     player.copy(handValue = Some(FullHouse), rankValue = rankValue)
   }
@@ -75,7 +76,6 @@ object Table {
     hand.cards.filter(_.color == colors).sorted.reverse.take(n).map(_.rankValue).sum
 
   private[domain] def getStraight(hand: Hand, player: Player): Player = {
-    val (first, second) = (player.cards.head, player.cards.last)
     val allCards = hand.cards ::: player.cards
     val straightRank = allCards.combinations(5).flatMap { cards =>
       val sortedRanks = cards.sorted.map(_.rankValue)
