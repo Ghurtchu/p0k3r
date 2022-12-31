@@ -44,8 +44,9 @@ object Table {
   }
 
   private[domain] def getFourOfAKind(hand: Hand, player: Player): Player = {
-    val (first, second) = (player.cards.head, player.cards.last)
-    val rankValue = FourOfAKind.value + 4 * (if (first == second || hand.cards.count(_ == first) == 3) first.rankValue else second.rankValue)
+    val playerRanks = player.cards.map(_.rank)
+    val (first, second) = (playerRanks.head, playerRanks.last)
+    val rankValue = FourOfAKind.value + 4 * (if (first == second || hand.cards.count(_.rank == first) == 3) first.value else second.value)
 
     player.copy(handValue = Some(FourOfAKind), rankValue = rankValue)
   }

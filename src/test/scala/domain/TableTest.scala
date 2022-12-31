@@ -99,4 +99,16 @@ class TableTest extends FunSuite {
     assertEquals(player.rankValue, FullHouse.value + Rank.King.value * 2 + Rank.Ace.value * 3)
   }
 
+  test("getFourOfAKind = ???") {
+    val hand = Hand("AcAs3d4d6d")
+    val player = Table.getFourOfAKind(hand, Player("AhAd"))
+    assertEquals(player.rankValue, FourOfAKind.value + 4 * Rank.Ace.value)
+  }
+
+  test("getFourOfAKind = ???") {
+    val hand = Hand("QhQsQd4d6d")
+    val player = Table.getFourOfAKind(hand, Player("Qc3s"))
+    assertEquals(player.rankValue, FourOfAKind.value + 4 * Rank.Queen.value)
+  }
+
 }
