@@ -74,20 +74,21 @@ object Table {
   private[domain] def filterByColorAndSumN(hand: Hand, colors: Color, n: Int): Int =
     hand.cards.filter(_.color == colors).sorted.reverse.take(n).map(_.rankValue).sum
 
-  private def getStraight(hand: Hand, player: Player): Player = {
+  private[domain] def getStraight(hand: Hand, player: Player): Player = {
     val (first, second) = (player.cards.head, player.cards.last)
     val allCards = hand.cards ::: player.cards
     val straightRank = allCards.combinations(5).flatMap { cards =>
       val sortedRanks = cards.sorted.map(_.rankValue)
-      if (straightRanges.contains(sortedRanks)) Some(Straight.value + sortedRanks.sum + (first.rankValue + second.rankValue)) else None
+      if (straightRanges.contains(sortedRanks)) Some(Straight.value + sortedRanks.sum) else None
     }.toList.max
 
     player.copy(handValue = Some(Straight), rankValue = straightRank)
   }
 
   private[domain] def getThreeOfAKind(hand: Hand, player: Player): Player = {
-    val (first, second) = (player.cards.head, player.cards.last)
-    val rankValue = ThreeOfAKind.value + 3 * (if (first == second || hand.cards.count(_ == first) == 2) first.rankValue else second.rankValue)
+    val playerRanks = player.cards.map(_.rank)
+    val (first, second) = (playerRanks.head, playerRanks.last)
+    val rankValue = ThreeOfAKind.value + 3 * (if (first == second || hand.cards.count(_.rank == first) == 2) first.value else second.value)
 
     player.copy(handValue = Some(ThreeOfAKind), rankValue = rankValue)
   }
