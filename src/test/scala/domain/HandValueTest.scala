@@ -100,7 +100,82 @@ class HandValueTest extends FunSuite {
   }
 
   test("isStraight = true") {
-
+    val hand = Hand("2c3d4ThQd")
+    val player = Player("5d6d")
+    assert(HandValue.isStraight(hand, player))
   }
+
+  test("isStraight = true") {
+    val hand = Hand("TcJdQhThQd")
+    val player = Player("AcKs")
+    assert(HandValue.isStraight(hand, player))
+  }
+
+  test("isStraight = true") {
+    val hand = Hand("JsQh9s6h2d")
+    val player = Player("TcKc")
+    assert(HandValue.isStraight(hand, player))
+  }
+
+  test("isStraight = false") {
+    val hand = Hand("JsQh9s6h2d")
+    val player = Player("Tc2c")
+    assert(!HandValue.isStraight(hand, player))
+  }
+
+  test("isStraight = false") {
+    val hand = Hand("2c3d4s7hJc")
+    val player = Player("5cTs")
+    assert(!HandValue.isStraight(hand, player))
+  }
+
+  test("isFlush = true") {
+    val hand = Hand("2c3c4c5d3d")
+    val player = Player("TcAc")
+    assert(HandValue.isFlush(hand, player))
+  }
+
+  test("isFlush = true") {
+    val hand = Hand("2c3c4c5c3d")
+    val player = Player("TcAd")
+    assert(HandValue.isFlush(hand, player))
+  }
+
+  test("isFlush = true") {
+    val hand = Hand("2d3d4d5c3d")
+    val player = Player("TcAd")
+    assert(HandValue.isFlush(hand, player))
+  }
+
+  test("isFlush = false") {
+    val hand = Hand("2d3d4d5c3s")
+    val player = Player("TdAs")
+    assert(!HandValue.isFlush(hand, player))
+  }
+
+  test("isFlush = false") {
+    val hand = Hand("2c3c4d5s3d")
+    val player = Player("TcAc")
+    assert(!HandValue.isFlush(hand, player))
+  }
+
+  test("isFlush = false") {
+    val hand = Hand("2h3c4h5h3d")
+    val player = Player("TcAh")
+    assert(!HandValue.isFlush(hand, player))
+  }
+
+  test("isFullHouse = true") {
+    val hand = Hand("ThTs4h5hQd")
+    val player = Player("TcQh")
+    assert(HandValue.isFullHouse(hand, player))
+  }
+
+  test("isFullHouse = true") {
+    val hand = Hand("ThTs4h5hTd")
+    val player = Player("AcAh")
+    assert(HandValue.isFullHouse(hand, player))
+  }
+
 
 }

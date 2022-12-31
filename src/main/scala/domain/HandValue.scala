@@ -42,7 +42,15 @@ object HandValue {
     else hand.cards.count(_.rank == first) == 4 || hand.cards.count(_.rank == second) == 4
   }
 
-  private[domain] def isFullHouse(hand: Hand, player: Player): Boolean = isThreeOfAKind(hand, player) && isPair(hand, player)
+  private[domain] def isFullHouse(hand: Hand, player: Player): Boolean = {
+    val playerRanks = player.cards.map(_.rank)
+    val (first, second) = (playerRanks.head, playerRanks.last)
+    if (first == second) hand.cards.map(_.rank).toSet.size <= 3
+    else {
+      (hand.cards.count(_.rank == first) >= 1 && hand.cards.count(_.rank == second) >= 2) ||
+        (hand.cards.count(_.rank == first) >= 2 && hand.cards.count(_.rank == second) >= 1)
+    }
+  }
 
   private[domain] def isFlush(hand: Hand, player: Player): Boolean = {
     val playerColors = player.cards.map(_.color)
