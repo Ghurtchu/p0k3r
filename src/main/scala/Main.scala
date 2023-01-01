@@ -11,10 +11,10 @@ object Main {
         val table = Table(hand, players)
         val playersSorted = table.evaluateHand
 
-        println(s"Hand: ${hand.cards.map(_.value).mkString("(",",", ")")}")
+        println(s"Hand: ${hand.cards.map(_.value).mkString("[",",", "]")}")
 
         playersSorted.foreach { case (i, value) =>
-          println(s"Rank: $i = $value")
+          println(s"Rank: $i = ${value.mkString("[", ",", "]")}")
         }
       case None =>
     }
