@@ -17,7 +17,6 @@
 
 ## The output:
 
-
 ![My Image](hand_result.png)
 
 
