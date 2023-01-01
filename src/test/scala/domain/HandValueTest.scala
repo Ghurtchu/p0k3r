@@ -270,4 +270,10 @@ class HandValueTest extends FunSuite {
     assert(!HandValue.isStraightFlush(hand, player))
   }
 
+  test("isStraightFlush = true") {
+    val hand = Hand("TcJcQcKcTs")
+    val player = Player("Ac2s")
+    assert(HandValue.isStraightFlush(hand, player))
+  }
+
 }

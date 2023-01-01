@@ -40,7 +40,7 @@ object Table {
       if (straightRanges.contains(sortedRanks) && sorted.forall(c => c.color == first.color || c.color == second.color)) Some(StraightFlush.value + sortedRanks.sum) else None
     }.toList.max
 
-    player.copy(handValue = Some(Straight), rankValue = straightRank)
+    player.copy(handValue = Some(StraightFlush), rankValue = straightRank)
   }
 
   private[domain] def getFourOfAKind(hand: Hand, player: Player): Player = {

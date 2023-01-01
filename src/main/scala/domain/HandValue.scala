@@ -26,20 +26,32 @@ object HandValue {
     else HighCard
 
   private[domain] def isStraightFlush(hand: Hand, player: Player): Boolean = {
-    hand.cards.combinations(3).toList.exists { cards =>
-      val allCards = (cards ::: player.cards).sorted
+    val (first, second) = (player.cards.head, player.cards.last)
+    val (firstColor, secondColor) = (first.color, second.color)
+    lazy val firstCaseExists = hand.cards.combinations(3).toList.exists { cards =>
+      val allCards = (player.cards ::: cards).sorted
       val allRankValues = allCards.map(_.rankValue)
       val color = allCards.head.color
 
       straightRanges.contains(allRankValues) && allCards.forall(_.color == color)
     }
+    lazy val secondCaseExists = hand.cards.combinations(4).toList.exists { cards =>
+      val (cardsWithFirst, cardsWithSecond) = ((first :: cards).sorted, (second :: cards).sorted)
+      val (ranksWithFirst, ranksWithSecond) = (cardsWithFirst.map(_.rankValue), cardsWithSecond.map(_.rankValue))
+
+      (straightRanges.contains(ranksWithFirst) && cardsWithFirst.forall(_.color == firstColor)) ||
+        (straightRanges.contains(ranksWithSecond) && cardsWithSecond.forall(_.color == secondColor))
+    }
+
+    if (firstCaseExists) firstCaseExists else secondCaseExists
   }
 
   private[domain] def isFourOfAKind(hand: Hand, player: Player): Boolean = {
     val playerRanks = player.cards.map(_.rank)
     val (first, second) = (playerRanks.head, playerRanks.last)
     if (first == second) hand.cards.count(_.rank == first) == 2
-    else hand.cards.count(_.rank == first) == 3 || hand.cards.count(_.rank == second) == 3
+    else hand.cards.count(_.rank == first) == 3 ||
+      hand.cards.count(_.rank == second) == 3
   }
 
   private[domain] def isFullHouse(hand: Hand, player: Player): Boolean = {
@@ -56,37 +68,50 @@ object HandValue {
     val playerColors = player.cards.map(_.color)
     val (first, second) = (playerColors.head, playerColors.last)
     if (first == second) hand.cards.count(_.color == first) >= 3
-    else hand.cards.count(_.color == first) >= 4 || hand.cards.count(_.color == second) >= 4
+    else hand.cards.count(_.color == first) >= 4 ||
+      hand.cards.count(_.color == second) >= 4
   }
 
   private[domain] def isStraight(hand: Hand, player: Player): Boolean = {
-    val combinations = hand.cards.combinations(3).toList
-    combinations.exists { cards =>
-      val allCards = (cards ::: player.cards).sorted
-      val allCardsValues = allCards.map(_.rank.value)
+    val (first, second) = (player.cards.head, player.cards.last)
+    lazy val firstCaseExists = hand.cards.combinations(3).toList.exists { cards =>
+      val allCards = (player.cards ::: cards).sorted
+      val allRankValues = allCards.map(_.rankValue)
 
-      straightRanges contains allCardsValues
+      straightRanges contains allRankValues
     }
+    lazy val secondCaseExists = hand.cards.combinations(4).toList.exists { cards =>
+      val (cardsWithFirst, cardsWithSecond) = ((first :: cards).sorted, (second :: cards).sorted)
+      val (ranksWithFirst, ranksWithSecond) = (cardsWithFirst.map(_.rankValue), cardsWithSecond.map(_.rankValue))
+
+      (straightRanges contains ranksWithFirst) ||
+        (straightRanges contains ranksWithSecond)
+    }
+
+    if (firstCaseExists) firstCaseExists else secondCaseExists
   }
 
   private[domain] def isThreeOfAKind(hand: Hand, player: Player): Boolean = {
     val playerRanks = player.cards.map(_.rank)
     val (first, second) = (playerRanks.head, playerRanks.last)
     if (first == second) hand.cards.count(_.rank == first) == 1
-    else hand.cards.count(_.rank == first) == 2 || hand.cards.count(_.rank == second) == 2
+    else hand.cards.count(_.rank == first) == 2 ||
+      hand.cards.count(_.rank == second) == 2
   }
 
   private[domain] def isTwoPairs(hand: Hand, player: Player): Boolean = {
     val (first, second) = (player.cards.head, player.cards.last)
 
-    first.rank != second.rank && hand.cards.count(_.rank == first.rank) == 1 && hand.cards.count(_.rank == second.rank) == 1
+    first.rank != second.rank && hand.cards.count(_.rank == first.rank) == 1 &&
+      hand.cards.count(_.rank == second.rank) == 1
   }
 
   private[domain] def isPair(hand: Hand, player: Player): Boolean = {
     player.cards.head.rank == player.cards.last.rank || {
       val (first, second) = (player.cards.head, player.cards.last)
 
-      hand.cards.count(_.rank == first.rank) == 1 || hand.cards.count(_.rank == second.rank) == 1
+      hand.cards.count(_.rank == first.rank) == 1 ||
+        hand.cards.count(_.rank == second.rank) == 1
     }
   }
 
