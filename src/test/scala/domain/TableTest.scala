@@ -111,4 +111,34 @@ class TableTest extends FunSuite {
     assertEquals(player.rankValue, FourOfAKind.value + 4 * Rank.Queen.value)
   }
 
+  test("getStraightFlush = ???") {
+    val hand = Hand("2h3h4h7h8h")
+    val player = Table.getStraightFlush(hand, Player("5h6h"))
+    assertEquals(player.rankValue, StraightFlush.value + Rank.Four.value + Rank.Five.value + Rank.Six.value + Rank.Seven.value + Rank.Eight.value)
+  }
+
+  test("getStraightFlush = ???") {
+    val hand = Hand("TsQs4h7h8h")
+    val player = Table.getStraightFlush(hand, Player("5h6h"))
+    assertEquals(player.rankValue, StraightFlush.value + Rank.Four.value + Rank.Five.value + Rank.Six.value + Rank.Seven.value + Rank.Eight.value)
+  }
+
+  test("getStraightFlush = ???") {
+    val hand = Hand("6hQs4h7h8h")
+    val player = Table.getStraightFlush(hand, Player("5h6s"))
+    assertEquals(player.rankValue, StraightFlush.value + Rank.Four.value + Rank.Five.value + Rank.Six.value + Rank.Seven.value + Rank.Eight.value)
+  }
+
+  test("getStraightFlush = ???") {
+    val hand = Hand("5hQs4h7h8h")
+    val player = Table.getStraightFlush(hand, Player("5s6h"))
+    assertEquals(player.rankValue, StraightFlush.value + Rank.Four.value + Rank.Five.value + Rank.Six.value + Rank.Seven.value + Rank.Eight.value)
+  }
+
+  test("getStraightFlush = ???") {
+    val hand = Hand("QcJcKcKsKh")
+    val player = Table.getStraightFlush(hand, Player("AcTc"))
+    assertEquals(player.rankValue, StraightFlush.value + Rank.Ace.value + Rank.King.value + Rank.Ten.value + Rank.Queen.value + Rank.Jack.value)
+  }
+
 }

@@ -36,8 +36,8 @@ object Table {
     val allCards = hand.cards ::: player.cards
     val straightRank = allCards.combinations(5).flatMap { cards =>
       val sorted = cards.sorted
-      val sortedRanks = sorted.map(_.rank)
-      if (straightRanges.contains(sortedRanks) && sorted.forall(c => c.color == first.color || c.color == second.color)) Some(StraightFlush.value + sortedRanks.map(_.value).sum) else None
+      val sortedRanks = sorted.map(_.rank.value)
+      if (straightRanges.contains(sortedRanks) && sorted.forall(c => c.color == first.color || c.color == second.color)) Some(StraightFlush.value + sortedRanks.sum) else None
     }.toList.max
 
     player.copy(handValue = Some(Straight), rankValue = straightRank)
