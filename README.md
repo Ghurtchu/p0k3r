@@ -1,7 +1,7 @@
 ## Texas Holdem poker hand evaluator
 
 ### how to run: scala Main.scala [game-name] [hand] [player1] [player2] .. [playerN]
-### how to run: scala Main.scala texas-holdem TcJcQcKcTs Ac2s As3d Ah9d 9c4h
+### e.g:        scala Main.scala texas-holdem TcJcQcKcTs Ac2s As3d Ah9d 9c4h
 
 ## Let's say we have 4 players with the following cards:
 
